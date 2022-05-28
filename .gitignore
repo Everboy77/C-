@@ -1,32 +1,123 @@
-# Prerequisites
-*.d
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+typedef struct NO{
+	int dado;
+	struct NO *prox;	
+}NO;
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+typedef struct PILHA{
+NO *topo;
+}PILHA;
 
-# Precompiled Headers
-*.gch
-*.pch
+void inicializaPilha(PILHA *p){
+	setlocale(LC_ALL, "Portuguese");
+	p->topo = NULL;
+	
+}
+	void empilha(int dado, PILHA *p){
+		NO *ptr = (NO*) malloc(sizeof(NO));
+		if (ptr == NULL) {
+			printf("erro de alocação de nó .\n");
+			return;
+		} else{
+		ptr->dado =	dado ;
+		ptr->prox =	p->topo;
+			p->topo = ptr;
+		}
+	
+		}
+int desempilha(PILHA *p){
+	NO* ptr = p->topo;
+	int dado;
+	if(ptr == NULL){
+		printf("Pilha de pratos vazia.\n");
+		return(0);
+	} else{
+		p->topo = ptr->prox;
+		ptr->prox = NULL ;
+	dado = ptr->dado;
+		free(ptr);
+		return dado;
+		
+	}
+	}
+void imprimePilha(PILHA *p){
+	NO *ptr = p->topo;
+	if(ptr == NULL){
+		printf("\n Ultimo prato da pilha abaixo, _pilha completa_.\n");
+		return;
+		
+	}else{
+		while(ptr != NULL){
+		printf("\n           [%d] \n ", ptr->dado);
+			ptr = ptr->prox;
+			
+		}
+	printf("\n");
+	}
+	
+}
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
 
-# Fortran module files
-*.mod
-*.smod
+int main()
+ { 
+ 
+	PILHA *p1 = (PILHA*) malloc(sizeof(PILHA));
+	if(p1 == NULL){
+		printf("Erro de alocação da pilha.\n");
+		exit(0);
+	} else {
+		
+		inicializaPilha(p1);
+		
+			imprimePilha(p1);
+		
+		empilha(1, p1); //Prato Vermelho
+		
+		empilha(2, p1); //Prato Verde
+		
+		empilha(3, p1); //Prato Azul
+		
+		empilha(4, p1); //Prato Branco
+		
+		empilha(5, p1); // Prato laranja
+		
+		imprimePilha(p1);
+		
+	printf("Desempilhando prato - resultado: [%d].\n", desempilha(p1));
+	printf("Desempilhando prato - resultado: [%d].\n", desempilha(p1));
+	printf("Desempilhando prato - resultado: [%d].\n", desempilha(p1));
+	printf("Desempilhando prato - resultado: [%d].\n", desempilha(p1));
+	printf("Desempilhando prato - resultado: [%d].\n", desempilha(p1));
+	printf("\n");
+	desempilha(p1);
+	} 
+		
+	if(p1 == NULL){
+		printf("Erro de alocação da pilha.\n");
+		exit(0);
+	} else {
+		
+		inicializaPilha(p1);
+		
+			imprimePilha(p1);
+		
+		empilha(5, p1); // Prato laranja
+		
+	
+		empilha(4, p1); //Prato Branco
+		
+		empilha(3, p1); //Prato Azul
+		
+		empilha(2, p1); //Prato Verde
+		
+		empilha(1, p1); //Prato Vermelho
+		
+		imprimePilha(p1);
+}
+ 
+ 
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+		
+	}
